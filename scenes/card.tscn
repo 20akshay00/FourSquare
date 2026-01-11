@@ -1,0 +1,14 @@
+[gd_scene load_steps=4 format=3 uid="uid://60dvv2ykuqe5"]
+
+[ext_resource type="Script" uid="uid://is5x8qlmnsq6" path="res://scripts/card.gd" id="1_d81rb"]
+[ext_resource type="Texture2D" uid="uid://mvnn4pqdychw" path="res://assets/CuteCards.png" id="1_ktuci"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sy11y"]
+atlas = ExtResource("1_ktuci")
+region = Rect2(0, 0, 100, 144)
+
+[node name="Card" type="Node2D"]
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_sy11y")
+script = ExtResource("1_d81rb")
