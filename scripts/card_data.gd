@@ -8,7 +8,7 @@ const CARD_HEIGHT: int = 144
 
 @export var value: int = 1
 @export var suit: CardSuit = CardSuit.CLUB
-@export var atlas_rects: Array[Rect2] = [Rect2(0, 0, 100, 144), Rect2(0, 0, 100, 144)]
+@export var atlas_rects: Array[Rect2] = [Rect2(0, 0, 100, 144), Rect2(CARD_WIDTH * 14, CARD_HEIGHT * 2, CARD_WIDTH, CARD_HEIGHT)]
 
 func _init(p_value: int = 1, p_suit: CardSuit = CardSuit.CLUB, atlas_coord: Vector2 = Vector2.ZERO):
 	value = p_value

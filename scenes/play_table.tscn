@@ -1,17 +1,55 @@
 [gd_scene load_steps=4 format=3 uid="uid://cygnqj3grdby8"]
 
-[ext_resource type="Script" uid="uid://da07m421m6aww" path="res://scripts/play_table.gd" id="1_2me7x"]
 [ext_resource type="Script" uid="uid://b1h5qnoyjdom" path="res://scripts/game_manager.gd" id="1_d44ko"]
-[ext_resource type="PackedScene" uid="uid://60dvv2ykuqe5" path="res://scenes/card.tscn" id="1_f1dhl"]
+[ext_resource type="PackedScene" uid="uid://dtqrf36tw23fy" path="res://scenes/stack.tscn" id="2_2me7x"]
+[ext_resource type="PackedScene" uid="uid://lrfva6ntxenw" path="res://scenes/deck.tscn" id="3_2me7x"]
 
 [node name="PlayTable" type="Node2D"]
-script = ExtResource("1_2me7x")
 
-[node name="GameManager" type="Node2D" parent="."]
+[node name="GameManager" type="Node2D" parent="." node_paths=PackedStringArray("deck", "grid")]
 script = ExtResource("1_d44ko")
-card_scene = ExtResource("1_f1dhl")
+deck = NodePath("../Deck")
+grid = NodePath("../Grid")
 
 [node name="Grid" type="Node2D" parent="."]
+position = Vector2(455, 67)
+metadata/_edit_group_ = true
 
-[node name="Card" parent="Grid" instance=ExtResource("1_f1dhl")]
-position = Vector2(710, 241)
+[node name="Stack1" parent="Grid" instance=ExtResource("2_2me7x")]
+position = Vector2(50, 72)
+
+[node name="Stack2" parent="Grid" instance=ExtResource("2_2me7x")]
+position = Vector2(200, 72)
+
+[node name="Stack3" parent="Grid" instance=ExtResource("2_2me7x")]
+position = Vector2(350, 72)
+
+[node name="Stack4" parent="Grid" instance=ExtResource("2_2me7x")]
+position = Vector2(500, 72)
+
+[node name="Stack5" parent="Grid" instance=ExtResource("2_2me7x")]
+position = Vector2(50, 252)
+
+[node name="Stack6" parent="Grid" instance=ExtResource("2_2me7x")]
+position = Vector2(200, 252)
+
+[node name="Stack7" parent="Grid" instance=ExtResource("2_2me7x")]
+position = Vector2(350, 252)
+
+[node name="Stack8" parent="Grid" instance=ExtResource("2_2me7x")]
+position = Vector2(500, 252)
+
+[node name="Stack9" parent="Grid" instance=ExtResource("2_2me7x")]
+position = Vector2(50, 432)
+
+[node name="Stack10" parent="Grid" instance=ExtResource("2_2me7x")]
+position = Vector2(200, 432)
+
+[node name="Stack11" parent="Grid" instance=ExtResource("2_2me7x")]
+position = Vector2(350, 432)
+
+[node name="Stack12" parent="Grid" instance=ExtResource("2_2me7x")]
+position = Vector2(500, 432)
+
+[node name="Deck" parent="." instance=ExtResource("3_2me7x")]
+position = Vector2(222, 324)

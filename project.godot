@@ -12,8 +12,16 @@ config_version=5
 
 config/name="FourSquare"
 run/main_scene="res://scenes/play_table.tscn"
-config/features=PackedStringArray("4.5", "Mobile")
+config/features=PackedStringArray("4.4", "Mobile")
 config/icon="res://icon.svg"
+
+[autoload]
+
+EventManager="*res://globals/event_manager.gd"
+
+[display]
+
+window/stretch/mode="canvas_items"
 
 [input]
 

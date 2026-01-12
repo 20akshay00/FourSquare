@@ -1,0 +1,16 @@
+[gd_scene load_steps=5 format=3 uid="uid://lrfva6ntxenw"]
+
+[ext_resource type="Script" uid="uid://bxkv4ewshn5t1" path="res://scripts/deck.gd" id="1_6rnap"]
+[ext_resource type="Texture2D" uid="uid://mvnn4pqdychw" path="res://assets/CuteCards.png" id="1_sdhao"]
+[ext_resource type="PackedScene" uid="uid://60dvv2ykuqe5" path="res://scenes/card.tscn" id="2_gdbsr"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6rnap"]
+atlas = ExtResource("1_sdhao")
+region = Rect2(1400, 288, 100, 144)
+
+[node name="Deck" type="Node2D"]
+script = ExtResource("1_6rnap")
+card_scene = ExtResource("2_gdbsr")
+
+[node name="Base" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_6rnap")
