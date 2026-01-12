@@ -17,7 +17,9 @@ config/icon="res://icon.svg"
 
 [autoload]
 
+TransitionManager="*res://globals/transition_manager.tscn"
 EventManager="*res://globals/event_manager.gd"
+StatsManager="*res://globals/stats_manager.gd"
 
 [display]
 

@@ -1,0 +1,114 @@
+[gd_scene load_steps=5 format=3 uid="uid://dnpd3up5jtbew"]
+
+[ext_resource type="Script" uid="uid://bjt13pc25hgaj" path="res://scripts/stats_ui.gd" id="1_503uq"]
+[ext_resource type="Shader" uid="uid://7dax1ih2rj3x" path="res://assets/shaders/frost.gdshader" id="2_e041b"]
+[ext_resource type="FontFile" uid="uid://ftg30fonq2ip" path="res://assets/karmatic-arcade.regular.ttf" id="3_60ac8"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_60ac8"]
+shader = ExtResource("2_e041b")
+shader_parameter/blur_amount = 0.0
+shader_parameter/mix_color = Color(1, 1, 1, 0.2)
+
+[node name="StatsUI" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_503uq")
+
+[node name="FrostBG" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_60ac8")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="Container" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -226.0
+offset_top = -157.0
+offset_right = 242.0
+offset_bottom = 71.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HighScoreLabel" type="Label" parent="Container"]
+layout_mode = 2
+offset_right = 468.0
+offset_bottom = 36.0
+theme_override_fonts/font = ExtResource("3_60ac8")
+theme_override_font_sizes/font_size = 32
+text = "High score - 0"
+
+[node name="HSeparator" type="HSeparator" parent="Container"]
+modulate = Color(1, 1, 1, 0.498039)
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+offset_top = 40.0
+offset_right = 468.0
+offset_bottom = 60.0
+theme_override_constants/separation = 20
+
+[node name="GamesPlayedLabel" type="Label" parent="Container"]
+layout_mode = 2
+offset_top = 64.0
+offset_right = 468.0
+offset_bottom = 100.0
+theme_override_fonts/font = ExtResource("3_60ac8")
+theme_override_font_sizes/font_size = 32
+text = "Games played - 0"
+
+[node name="HSeparator2" type="HSeparator" parent="Container"]
+modulate = Color(1, 1, 1, 0.498039)
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+offset_top = 104.0
+offset_right = 468.0
+offset_bottom = 124.0
+theme_override_constants/separation = 20
+
+[node name="WinRateLabel" type="Label" parent="Container"]
+layout_mode = 2
+offset_top = 192.0
+offset_right = 468.0
+offset_bottom = 228.0
+theme_override_fonts/font = ExtResource("3_60ac8")
+theme_override_font_sizes/font_size = 32
+text = "Win rate - 0"
+
+[node name="HSeparator3" type="HSeparator" parent="Container"]
+modulate = Color(1, 1, 1, 0.498039)
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+offset_top = 168.0
+offset_right = 468.0
+offset_bottom = 188.0
+theme_override_constants/separation = 20
+
+[node name="AvgTimeLabel" type="Label" parent="Container"]
+layout_mode = 2
+offset_top = 128.0
+offset_right = 468.0
+offset_bottom = 164.0
+theme_override_fonts/font = ExtResource("3_60ac8")
+theme_override_font_sizes/font_size = 32
+text = "Average playtime - 0"
+
+[node name="CloseButton" type="Button" parent="."]
+offset_left = 499.0
+offset_top = 528.0
+offset_right = 576.0
+offset_bottom = 555.0
+focus_mode = 0
+theme_override_fonts/font = ExtResource("3_60ac8")
+theme_override_font_sizes/font_size = 16
+text = "Close"
+flat = true
+
+[connection signal="pressed" from="CloseButton" to="." method="_on_close_button_pressed"]

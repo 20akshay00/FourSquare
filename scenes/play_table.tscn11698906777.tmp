@@ -1,14 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://cygnqj3grdby8"]
+[gd_scene load_steps=8 format=3 uid="uid://cygnqj3grdby8"]
 
-[ext_resource type="Shader" uid="uid://dyj4f805h8iqv" path="res://assets/shaders/play_table.gdshader" id="1_86ixl"]
+[ext_resource type="Shader" uid="uid://dyj4f805h8iqv" path="res://assets/play_table.gdshader" id="1_86ixl"]
 [ext_resource type="Script" uid="uid://b1h5qnoyjdom" path="res://scripts/game_manager.gd" id="1_d44ko"]
 [ext_resource type="PackedScene" uid="uid://dtqrf36tw23fy" path="res://scenes/stack.tscn" id="2_2me7x"]
 [ext_resource type="FontFile" uid="uid://ftg30fonq2ip" path="res://assets/karmatic-arcade.regular.ttf" id="2_5rund"]
 [ext_resource type="Script" uid="uid://bptmcs424we5e" path="res://scenes/ui.gd" id="2_camre"]
 [ext_resource type="PackedScene" uid="uid://lrfva6ntxenw" path="res://scenes/deck.tscn" id="3_2me7x"]
-[ext_resource type="Texture2D" uid="uid://dse6ps31i33bg" path="res://assets/ui/retry_button.png" id="5_aahah"]
-[ext_resource type="Texture2D" uid="uid://bkyalbv0pn5qa" path="res://assets/ui/retry_button_grey.png" id="6_gm256"]
-[ext_resource type="PackedScene" uid="uid://dnpd3up5jtbew" path="res://scenes/stats_ui.tscn" id="7_38mqh"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_5rund"]
 shader = ExtResource("1_86ixl")
@@ -23,22 +20,10 @@ shader_parameter/vignette_intensity = 0.999
 
 [node name="PlayTable" type="Node2D"]
 
-[node name="StatsUILayer" type="CanvasLayer" parent="."]
-layer = 5
-
-[node name="StatsUI" parent="StatsUILayer" instance=ExtResource("7_38mqh")]
-modulate = Color(1, 1, 1, 0)
-z_index = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="BackgroundLayer" type="CanvasLayer" parent="."]
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = -1
 
-[node name="ColorRect" type="ColorRect" parent="BackgroundLayer"]
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
 z_index = -2
 material = SubResource("ShaderMaterial_5rund")
 anchors_preset = 15
@@ -48,9 +33,8 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="UI" type="CanvasLayer" parent="." node_paths=PackedStringArray("stats_ui")]
+[node name="UI" type="CanvasLayer" parent="."]
 script = ExtResource("2_camre")
-stats_ui = NodePath("../StatsUILayer/StatsUI")
 
 [node name="PlayField" type="ColorRect" parent="UI"]
 offset_left = 427.0
@@ -93,27 +77,14 @@ theme_override_font_sizes/font_size = 24
 disabled = true
 text = "Play Again?"
 
-[node name="StatsButton" type="Button" parent="UI"]
-offset_left = 1078.0
-offset_top = 11.0
-offset_right = 1136.0
-offset_bottom = 33.0
-focus_mode = 0
+[node name="HighScoreLabel" type="Label" parent="UI"]
+offset_left = 1008.0
+offset_top = 10.0
+offset_right = 1139.0
+offset_bottom = 27.0
 theme_override_fonts/font = ExtResource("2_5rund")
 theme_override_font_sizes/font_size = 12
-text = "Stats"
-flat = true
-
-[node name="RetryButton" type="TextureButton" parent="UI"]
-offset_left = 1110.0
-offset_top = 605.0
-offset_right = 1174.0
-offset_bottom = 669.0
-scale = Vector2(0.5, 0.5)
-texture_normal = ExtResource("5_aahah")
-texture_pressed = ExtResource("6_gm256")
-texture_hover = ExtResource("6_gm256")
-ignore_texture_size = true
+text = "High score - ??"
 
 [node name="GameManager" type="Node2D" parent="." node_paths=PackedStringArray("deck", "grid")]
 script = ExtResource("1_d44ko")
@@ -164,5 +135,3 @@ position = Vector2(500, 432)
 position = Vector2(222, 324)
 
 [connection signal="pressed" from="UI/PlayAgainButton" to="UI" method="_on_play_again_button_pressed"]
-[connection signal="pressed" from="UI/StatsButton" to="UI" method="_on_stats_button_pressed"]
-[connection signal="pressed" from="UI/RetryButton" to="UI" method="_on_retry_button_pressed"]

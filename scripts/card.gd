@@ -3,7 +3,7 @@ class_name Card
 
 @export var data: CardData
 @onready var sprite := $Sprite
-@onready var input_area := $Area2D
+@onready var input_area := $ReferenceRect
 
 @export var FLIP_DURATION: float = 0.2
 @export var FLIP_SCALE_Y: float = 1.1
@@ -19,27 +19,17 @@ var _move_tween: Tween
 func _ready() -> void:
 	_is_showing_face = is_revealed
 	sprite.region_rect = data.atlas_rects[0 if _is_showing_face else 1]
-
 	flip()
-	input_area.mouse_entered.connect(_on_mouse_entered)
-	input_area.mouse_exited.connect(_on_mouse_exited)
 
-func _on_mouse_entered():
-	animate_to_face(true)
-
-func _on_mouse_exited():
-	if not is_revealed:
-		animate_to_face(false)
-
-func flip(val = null) -> void:
+func flip(val = null) -> Tween:
 	if val != null:
 		is_revealed = val
-		animate_to_face(val)
+		return animate_to_face(val)
 	
 	is_revealed = !is_revealed
-	animate_to_face(is_revealed)
+	return animate_to_face(is_revealed)
 
-func animate_to_face(target_face_up: bool) -> void:
+func animate_to_face(target_face_up: bool) -> Tween:
 	if _is_showing_face == target_face_up: 
 		return
 	
@@ -56,9 +46,11 @@ func animate_to_face(target_face_up: bool) -> void:
 	
 	_flip_tween.tween_property(sprite, "scale:x", 1.0, FLIP_DURATION / 2.0).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 	_flip_tween.parallel().tween_property(sprite, "scale:y", 1.0, FLIP_DURATION / 2.0).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
+	
+	return _flip_tween
 
-func move_to_stack(target_stack: Node2D):
-	if _move_tween: _move_tween.kill()	
+func move_to_stack(target_stack: Node2D) -> Tween:
+	if _move_tween: _move_tween.kill()
 	_move_tween = create_tween()
 	
 	_move_tween.tween_property(self, "global_position", target_stack.global_position, MOVE_DURATION)\
@@ -72,6 +64,14 @@ func move_to_stack(target_stack: Node2D):
 		reparent(target_stack)
 		position = Vector2.ZERO 
 	)
+	
+	return _move_tween
 
 func get_value() -> int:
 	return data.value
+
+func _on_reference_rect_mouse_entered() -> void:
+	animate_to_face(true)
+
+func _on_reference_rect_mouse_exited() -> void:
+	if not is_revealed: animate_to_face(false)

@@ -45,10 +45,11 @@ func _process(delta: float) -> void:
 		else:
 			_flash_color(INVALID_COLOR)
 
-func flip():
+func flip() -> Tween:
 	var top_card := get_top_card()
 	if top_card != null:
-		top_card.flip()
+		return top_card.flip()
+	return null
 
 func get_top_card() -> Card:
 	var child = get_child(-1)

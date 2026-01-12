@@ -6,6 +6,9 @@ class_name Deck
 var cards: Array[CardData] = []
 var active_card: Card 
 
+func _ready() -> void:
+	EventManager.game_won.connect(_on_game_won)
+
 func generate() -> void:
 	cards = []
 	for s in CardData.CardSuit.values():
@@ -19,10 +22,20 @@ func shuffle() -> void:
 	cards.shuffle()
 
 func spawn_card() -> void:
+	if len(cards) == 1:
+		$Base.hide()
+	elif len(cards) == 0: 
+		EventManager.game_over.emit()
+		return
+
 	active_card = card_scene.instantiate()
 	active_card.data = cards.pop_front()
 	add_child(active_card)
 	active_card.global_position = global_position
 	
 func get_active_card() -> Card:
+	EventManager.card_count_changed.emit(len(cards))
 	return active_card
+
+func _on_game_won() -> void:
+	StatsManager.update_stats(len(cards))

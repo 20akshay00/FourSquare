@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://60dvv2ykuqe5"]
+[gd_scene load_steps=6 format=3 uid="uid://60dvv2ykuqe5"]
 
 [ext_resource type="Script" uid="uid://is5x8qlmnsq6" path="res://scripts/card.gd" id="1_d81rb"]
 [ext_resource type="Texture2D" uid="uid://mvnn4pqdychw" path="res://assets/CuteCards.png" id="1_ktuci"]
@@ -14,19 +14,22 @@ metadata/_custom_type_script = "uid://cha6ywiddikuv"
 [sub_resource type="AtlasTexture" id="AtlasTexture_ktuci"]
 atlas = ExtResource("1_ktuci")
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ktuci"]
-size = Vector2(76, 120)
-
 [node name="Card" type="Node2D"]
 script = ExtResource("1_d81rb")
 data = SubResource("Resource_kg30u")
 
 [node name="Sprite" type="Sprite2D" parent="."]
+self_modulate = Color(0.814678, 0.814679, 0.814678, 1)
 texture = SubResource("AtlasTexture_ktuci")
 region_enabled = true
 region_rect = Rect2(0, 0, 100, 144)
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="ReferenceRect" type="ReferenceRect" parent="."]
+offset_left = -38.0
+offset_top = -60.0
+offset_right = 38.0
+offset_bottom = 60.0
+mouse_filter = 1
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-shape = SubResource("RectangleShape2D_ktuci")
+[connection signal="mouse_entered" from="ReferenceRect" to="." method="_on_reference_rect_mouse_entered"]
+[connection signal="mouse_exited" from="ReferenceRect" to="." method="_on_reference_rect_mouse_exited"]
