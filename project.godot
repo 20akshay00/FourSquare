@@ -20,10 +20,11 @@ config/icon="res://icon.svg"
 TransitionManager="*res://globals/transition_manager.tscn"
 EventManager="*res://globals/event_manager.gd"
 StatsManager="*res://globals/stats_manager.gd"
+AudioManager="*res://globals/audio_manager.tscn"
 
 [display]
 
-window/stretch/mode="canvas_items"
+window/stretch/mode="viewport"
 
 [input]
 

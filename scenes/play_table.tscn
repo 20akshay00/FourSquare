@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://cygnqj3grdby8"]
+[gd_scene load_steps=13 format=3 uid="uid://cygnqj3grdby8"]
 
 [ext_resource type="Shader" uid="uid://dyj4f805h8iqv" path="res://assets/shaders/play_table.gdshader" id="1_86ixl"]
 [ext_resource type="Script" uid="uid://b1h5qnoyjdom" path="res://scripts/game_manager.gd" id="1_d44ko"]
@@ -8,7 +8,9 @@
 [ext_resource type="PackedScene" uid="uid://lrfva6ntxenw" path="res://scenes/deck.tscn" id="3_2me7x"]
 [ext_resource type="Texture2D" uid="uid://dse6ps31i33bg" path="res://assets/ui/retry_button.png" id="5_aahah"]
 [ext_resource type="Texture2D" uid="uid://bkyalbv0pn5qa" path="res://assets/ui/retry_button_grey.png" id="6_gm256"]
+[ext_resource type="Texture2D" uid="uid://rtvo7va152yt" path="res://assets/musicOn.png" id="7_4u43a"]
 [ext_resource type="PackedScene" uid="uid://dnpd3up5jtbew" path="res://scenes/stats_ui.tscn" id="7_38mqh"]
+[ext_resource type="Texture2D" uid="uid://dxbtoc5qktrt3" path="res://assets/musicOff.png" id="8_oer3f"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_5rund"]
 shader = ExtResource("1_86ixl")
@@ -29,11 +31,6 @@ layer = 5
 [node name="StatsUI" parent="StatsUILayer" instance=ExtResource("7_38mqh")]
 modulate = Color(1, 1, 1, 0)
 z_index = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
 
 [node name="BackgroundLayer" type="CanvasLayer" parent="."]
 layer = -1
@@ -53,6 +50,7 @@ script = ExtResource("2_camre")
 stats_ui = NodePath("../StatsUILayer/StatsUI")
 
 [node name="PlayField" type="ColorRect" parent="UI"]
+modulate = Color(1, 1, 1, 0)
 offset_left = 427.0
 offset_top = 41.0
 offset_right = 1031.0
@@ -71,36 +69,37 @@ theme_override_font_sizes/font_size = 18
 text = "40"
 
 [node name="GameOverLabel" type="Label" parent="UI"]
-offset_left = 81.0
-offset_top = 133.0
-offset_right = 359.0
-offset_bottom = 174.0
+self_modulate = Color(0.815686, 0.815686, 0.815686, 1)
+offset_left = 132.0
+offset_top = 173.0
+offset_right = 316.0
+offset_bottom = 201.0
 scale = Vector2(1e-05, 1e-05)
-pivot_offset = Vector2(140, 18)
+pivot_offset = Vector2(93, 10)
 theme_override_fonts/font = ExtResource("2_5rund")
-theme_override_font_sizes/font_size = 36
+theme_override_font_sizes/font_size = 24
 text = "Game Over!"
 
 [node name="PlayAgainButton" type="Button" parent="UI"]
-offset_left = 114.0
-offset_top = 486.0
-offset_right = 332.0
-offset_bottom = 530.0
+offset_left = 136.0
+offset_top = 468.0
+offset_right = 311.0
+offset_bottom = 500.0
 scale = Vector2(1e-05, 1e-05)
-pivot_offset = Vector2(108, 18)
+pivot_offset = Vector2(87, 15)
 theme_override_fonts/font = ExtResource("2_5rund")
-theme_override_font_sizes/font_size = 24
+theme_override_font_sizes/font_size = 20
 disabled = true
 text = "Play Again?"
 
 [node name="StatsButton" type="Button" parent="UI"]
-offset_left = 1078.0
-offset_top = 11.0
+offset_left = 1061.0
+offset_top = 13.0
 offset_right = 1136.0
-offset_bottom = 33.0
+offset_bottom = 40.0
 focus_mode = 0
 theme_override_fonts/font = ExtResource("2_5rund")
-theme_override_font_sizes/font_size = 12
+theme_override_font_sizes/font_size = 16
 text = "Stats"
 flat = true
 
@@ -113,6 +112,27 @@ scale = Vector2(0.5, 0.5)
 texture_normal = ExtResource("5_aahah")
 texture_pressed = ExtResource("6_gm256")
 texture_hover = ExtResource("6_gm256")
+ignore_texture_size = true
+
+[node name="TitleLabel" type="RichTextLabel" parent="UI"]
+self_modulate = Color(0.815686, 0.815686, 0.815686, 1)
+offset_left = 78.0
+offset_top = 73.0
+offset_right = 380.0
+offset_bottom = 123.0
+theme_override_fonts/normal_font = ExtResource("2_5rund")
+theme_override_font_sizes/normal_font_size = 32
+bbcode_enabled = true
+text = "[wave amp=40 freq=4.5]FOURSQUARE[/wave]"
+
+[node name="AudioButton" type="TextureButton" parent="UI"]
+offset_left = 6.0
+offset_top = 589.0
+offset_right = 52.0
+offset_bottom = 639.0
+toggle_mode = true
+texture_normal = ExtResource("7_4u43a")
+texture_pressed = ExtResource("8_oer3f")
 ignore_texture_size = true
 
 [node name="GameManager" type="Node2D" parent="." node_paths=PackedStringArray("deck", "grid")]
@@ -166,3 +186,4 @@ position = Vector2(222, 324)
 [connection signal="pressed" from="UI/PlayAgainButton" to="UI" method="_on_play_again_button_pressed"]
 [connection signal="pressed" from="UI/StatsButton" to="UI" method="_on_stats_button_pressed"]
 [connection signal="pressed" from="UI/RetryButton" to="UI" method="_on_retry_button_pressed"]
+[connection signal="toggled" from="UI/AudioButton" to="UI" method="_on_audio_button_toggled"]

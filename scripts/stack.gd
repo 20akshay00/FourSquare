@@ -32,6 +32,7 @@ func _animate_color(target_color: Color) -> void:
 	_color_tween.tween_property(border, "self_modulate", target_color, duration).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 
 func _flash_color(target_color: Color) -> void:
+	AudioManager.play_effect(AudioManager.invalid_sfx)
 	if _color_tween: _color_tween.kill()
 	_color_tween = create_tween()
 	_color_tween.tween_property(border, "self_modulate", target_color, duration).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)

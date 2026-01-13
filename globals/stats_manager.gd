@@ -37,7 +37,7 @@ func _compute_stats() -> void:
 	high_score = 0
 
 	for s in sessions:
-		if s.score > high_score: high_score = s.score
+		if s.won and (s.score > high_score): high_score = s.score
 		if s.won: games_won += 1
 		total_score += s.score
 		total_time += s.duration

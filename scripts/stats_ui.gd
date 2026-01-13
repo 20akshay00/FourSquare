@@ -18,12 +18,17 @@ func open() -> void:
 func close() -> void:
 	_run_animation(false)
 
+func _format_time(seconds: float) -> String:
+	var mins = int(seconds) / 60
+	var secs = int(seconds) % 60
+	return "%02dm %02ds" % [mins, secs]
+	
 func _setup_stats() -> void:
 	var played = StatsManager.games_played
 	var win_rate = (float(StatsManager.games_won) / max(1, played)) * 100
 	labels[0].text = "Best score - %d" % StatsManager.high_score
 	labels[1].text = "Games played - %d" % played
-	labels[2].text = "Average playtime - %.1fs" % StatsManager.average_playtime
+	labels[2].text = "Average playtime - " + _format_time(StatsManager.average_playtime)
 	labels[3].text = "Win rate - %d%%" % win_rate
 
 func _run_animation(opening: bool) -> void:
@@ -51,7 +56,7 @@ func _run_animation(opening: bool) -> void:
 		var l_alpha = 1.0 if opening else 0.0
 		var l_y = _start_y[i] if opening else _start_y[i] + 20
 		
-		if opening and i == 0: # Initialize positions only on open
+		if opening and i == 0:
 			for j in labels.size(): 
 				labels[j].modulate.a = 0
 				labels[j].position.y = _start_y[j] + 20
@@ -63,4 +68,10 @@ func _run_animation(opening: bool) -> void:
 			.set_delay(delay)
 
 func _on_close_button_pressed() -> void:
+	AudioManager.play_effect(AudioManager.click_sfx)
 	close()
+
+func _on_clear_button_pressed() -> void:
+	AudioManager.play_effect(AudioManager.click_sfx)
+	StatsManager.clear_all_data()
+	_setup_stats()	

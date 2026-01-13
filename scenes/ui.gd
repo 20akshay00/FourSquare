@@ -58,12 +58,20 @@ func reveal_game_over_label() -> void:
 	)
 	
 func _on_play_again_button_pressed() -> void:
+	AudioManager.play_effect(AudioManager.click_sfx)
 	EventManager.turn_finished = true
 	TransitionManager.reload_scene()
 
 func _on_stats_button_pressed() -> void:
+	AudioManager.play_effect(AudioManager.click_sfx)
 	stats_ui.open()
 
 func _on_retry_button_pressed() -> void:
+	AudioManager.play_effect(AudioManager.click_sfx)
 	EventManager.turn_finished = true
 	TransitionManager.reload_scene()
+
+func _on_audio_button_toggled(toggled_on: bool) -> void:
+	if toggled_on: await AudioManager.play_effect(AudioManager.click_sfx).finished
+	AudioServer.set_bus_mute( AudioServer.get_bus_index("SFX"), toggled_on)
+	if !toggled_on: AudioManager.play_effect(AudioManager.click_sfx).finished

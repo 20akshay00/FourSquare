@@ -13,7 +13,7 @@ class_name Card
 
 var is_revealed: bool = false # game logic state
 var _is_showing_face: bool = false # visual state
-var _flip_tween: Tween
+var _flip_tween: Tween = null
 var _move_tween: Tween
 
 func _ready() -> void:
@@ -22,6 +22,7 @@ func _ready() -> void:
 	flip()
 
 func flip(val = null) -> Tween:
+	AudioManager.play_effect(AudioManager.flip_sfx)
 	if val != null:
 		is_revealed = val
 		return animate_to_face(val)
@@ -50,6 +51,7 @@ func animate_to_face(target_face_up: bool) -> Tween:
 	return _flip_tween
 
 func move_to_stack(target_stack: Node2D) -> Tween:
+	AudioManager.play_effect(AudioManager.slide_sfx, -2)
 	if _move_tween: _move_tween.kill()
 	_move_tween = create_tween()
 	
@@ -71,7 +73,10 @@ func get_value() -> int:
 	return data.value
 
 func _on_reference_rect_mouse_entered() -> void:
-	animate_to_face(true)
+	if not is_revealed:
+		if not _flip_tween.is_valid(): AudioManager.play_effect(AudioManager.flip_sfx, -2)
+		animate_to_face(true)
 
 func _on_reference_rect_mouse_exited() -> void:
-	if not is_revealed: animate_to_face(false)
+	if not is_revealed: 
+		animate_to_face(false)

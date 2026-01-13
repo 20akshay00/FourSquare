@@ -6,11 +6,14 @@ extends Node2D
 @export var FLIP_DURATION: float = 0.5
 
 var tween: Tween
+var _start_time: float = 0.0
 
 func _ready() -> void:
 	deck.generate()
 	deck.shuffle()
 	deck.spawn_card()
+	
+	_start_time = Time.get_ticks_msec()
 	
 	EventManager.stack_selected.connect(_on_stack_selected)
 	EventManager.turn_completed.connect(_on_turn_started)
@@ -81,9 +84,17 @@ func _validate_board() -> void:
 		.size()
 	
 	if count > 3:
+		_submit_session(false)
+		AudioManager.play_effect(AudioManager.game_over_sfx)
 		EventManager.game_over.emit()
 	elif count == 12:
+		_submit_session(true)
 		EventManager.game_won.emit()
 	else:
 		EventManager.turn_finished = true
 		EventManager.turn_completed.emit()
+
+func _submit_session(is_win) -> void:
+	var end_time = Time.get_ticks_msec()
+	var duration = (end_time - _start_time) / 1000.0
+	StatsManager.add_session(deck.cards.size(), is_win, duration)

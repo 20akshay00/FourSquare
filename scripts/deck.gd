@@ -6,9 +6,6 @@ class_name Deck
 var cards: Array[CardData] = []
 var active_card: Card 
 
-func _ready() -> void:
-	EventManager.game_won.connect(_on_game_won)
-
 func generate() -> void:
 	cards = []
 	for s in CardData.CardSuit.values():
@@ -36,6 +33,3 @@ func spawn_card() -> void:
 func get_active_card() -> Card:
 	EventManager.card_count_changed.emit(len(cards))
 	return active_card
-
-func _on_game_won() -> void:
-	StatsManager.update_stats(len(cards))
