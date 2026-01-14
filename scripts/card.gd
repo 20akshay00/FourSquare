@@ -51,7 +51,7 @@ func animate_to_face(target_face_up: bool) -> Tween:
 	return _flip_tween
 
 func move_to_stack(target_stack: Node2D) -> Tween:
-	AudioManager.play_effect(AudioManager.slide_sfx, -2)
+	AudioManager.play_effect(AudioManager.slide_sfx, -10)
 	if _move_tween: _move_tween.kill()
 	_move_tween = create_tween()
 	

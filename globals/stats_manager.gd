@@ -2,26 +2,28 @@ extends Node
 
 # raw data
 var sessions: Array = []
+var score: int = 0
 
 # computed for UI
 var high_score: int = 0
 var games_played: int = 0
 var games_won: int = 0
 var average_playtime: float = 0.0
+var player_name: String = "Player"
 
 const SAVE_PATH = "user://save_data_v1.json"
 
 func _ready() -> void:
 	load_data()
 
-func add_session(score: int, won: bool, duration: float) -> void:
+func add_session(new_score: int, won: bool, duration: float) -> void:
 	var session_data = {
-		"score": score,
+		"score": new_score,
 		"won": won,
 		"duration": duration,
 		"timestamp": Time.get_unix_time_from_system()
 	}
-	
+	score = new_score
 	sessions.append(session_data)
 	_compute_stats()
 	_save_data()
@@ -45,19 +47,25 @@ func _compute_stats() -> void:
 	average_playtime = total_time / games_played
 
 func load_data() -> void:
-	if not FileAccess.file_exists(SAVE_PATH):
-		return
-		
-	var file = FileAccess.open(SAVE_PATH, FileAccess.READ)
+	if not FileAccess.file_exists("user://save_data_v1.json"): return
+	var file = FileAccess.open("user://save_data_v1.json", FileAccess.READ)
 	var json = JSON.new()
 	if json.parse(file.get_as_text()) == OK:
 		sessions = json.data.get("sessions", [])
+		player_name = json.data.get("player_name", "Player")
 		_compute_stats()
 
+func save_name(n: String) -> void:
+	player_name = n
+	_save_data()
+
 func _save_data() -> void:
-	var file = FileAccess.open(SAVE_PATH, FileAccess.WRITE)
-	var data_to_save = { "sessions": sessions }
-	file.store_line(JSON.stringify(data_to_save))
+	var data = {
+		"sessions": sessions,
+		"player_name": player_name
+	}
+	var file = FileAccess.open("user://save_data_v1.json", FileAccess.WRITE)
+	file.store_line(JSON.stringify(data))
 
 func _notification(what):
 	if what == NOTIFICATION_WM_CLOSE_REQUEST:

@@ -21,10 +21,15 @@ TransitionManager="*res://globals/transition_manager.tscn"
 EventManager="*res://globals/event_manager.gd"
 StatsManager="*res://globals/stats_manager.gd"
 AudioManager="*res://globals/audio_manager.tscn"
+Talo="*res://addons/talo/talo_manager.gd"
 
 [display]
 
 window/stretch/mode="viewport"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/talo/plugin.cfg")
 
 [input]
 

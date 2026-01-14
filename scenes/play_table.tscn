@@ -68,17 +68,27 @@ theme_override_fonts/font = ExtResource("2_5rund")
 theme_override_font_sizes/font_size = 18
 text = "40"
 
-[node name="GameOverLabel" type="Label" parent="UI"]
+[node name="GameWonLabel" type="Label" parent="UI"]
 self_modulate = Color(0.815686, 0.815686, 0.815686, 1)
-offset_left = 132.0
+offset_left = 157.0
 offset_top = 173.0
-offset_right = 316.0
+offset_right = 290.0
 offset_bottom = 201.0
-scale = Vector2(1e-05, 1e-05)
-pivot_offset = Vector2(93, 10)
+pivot_offset = Vector2(64, 10)
 theme_override_fonts/font = ExtResource("2_5rund")
 theme_override_font_sizes/font_size = 24
-text = "Game Over!"
+text = "You Win!"
+
+[node name="GameOverLabel" type="Label" parent="UI"]
+self_modulate = Color(0.815686, 0.815686, 0.815686, 1)
+offset_left = 140.0
+offset_top = 173.0
+offset_right = 305.0
+offset_bottom = 201.0
+pivot_offset = Vector2(83, 10)
+theme_override_fonts/font = ExtResource("2_5rund")
+theme_override_font_sizes/font_size = 24
+text = "You lose!"
 
 [node name="PlayAgainButton" type="Button" parent="UI"]
 offset_left = 136.0
@@ -87,6 +97,7 @@ offset_right = 311.0
 offset_bottom = 500.0
 scale = Vector2(1e-05, 1e-05)
 pivot_offset = Vector2(87, 15)
+focus_mode = 0
 theme_override_fonts/font = ExtResource("2_5rund")
 theme_override_font_sizes/font_size = 20
 disabled = true

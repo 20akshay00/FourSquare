@@ -2,6 +2,8 @@ extends CanvasLayer
 
 @onready var count_label := $CountLabel
 @onready var game_over_label = $GameOverLabel
+@onready var game_won_label = $GameWonLabel
+
 @onready var play_again_button = $PlayAgainButton
 @onready var play_field = $PlayField
 
@@ -12,6 +14,9 @@ var game_over_tween: Tween
 func _ready() -> void:
 	EventManager.card_count_changed.connect(_on_card_count_changed)
 	EventManager.game_over.connect(_on_game_over)
+	EventManager.game_won.connect(_on_game_won)
+	game_over_label.scale = Vector2(0, 0)
+	game_won_label.scale = Vector2(0, 0)
 
 func _on_card_count_changed(val) -> void:
 	set_count(val)
@@ -57,6 +62,40 @@ func reveal_game_over_label() -> void:
 				.set_ease(Tween.EASE_IN_OUT)
 	)
 	
+func _on_game_won() -> void:
+	play_field.mouse_filter = Control.MOUSE_FILTER_STOP
+	reveal_game_won_label()
+
+func reveal_game_won_label() -> void:
+	game_won_label.scale = Vector2.ZERO
+	game_won_label.show()
+	
+	var tween = create_tween()
+	tween.tween_interval(0.5)
+
+	tween.tween_property(game_won_label, "scale", Vector2.ONE, 2.0)\
+		.set_trans(Tween.TRANS_ELASTIC)\
+		.set_ease(Tween.EASE_OUT)
+		
+	tween.tween_interval(0.2)
+	tween.tween_property(play_again_button, "scale", Vector2.ONE, 1.5)\
+		.set_trans(Tween.TRANS_ELASTIC)\
+		.set_ease(Tween.EASE_OUT)
+
+	tween.tween_callback(
+		func():
+			play_again_button.disabled = false
+			game_over_tween = create_tween().set_loops()
+			game_over_tween.tween_property(play_again_button, "scale", Vector2(1.05, 1.05), 0.8)\
+				.set_trans(Tween.TRANS_SINE)\
+				.set_ease(Tween.EASE_IN_OUT)
+			
+			game_over_tween.tween_property(play_again_button, "scale", Vector2.ONE, 0.8)\
+				.set_trans(Tween.TRANS_SINE)\
+				.set_ease(Tween.EASE_IN_OUT)
+			EventManager.open_leaderboard.emit()
+	)
+
 func _on_play_again_button_pressed() -> void:
 	AudioManager.play_effect(AudioManager.click_sfx)
 	EventManager.turn_finished = true

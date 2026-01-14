@@ -78,17 +78,23 @@ func _on_turn_started() -> void:
 	deck.spawn_card()
 
 func _validate_board() -> void:
-	var count = grid.get_children() \
+	var face_down_count = grid.get_children() \
 		.map(func(s): return s.get_top_card()) \
 		.filter(func(c): return c != null and !c.is_revealed) \
 		.size()
+		
+	var face_up_count = grid.get_children() \
+		.map(func(s): return s.get_top_card()) \
+		.filter(func(c): return c != null and c.is_revealed) \
+		.size()
 	
-	if count > 3:
+	if face_down_count > 3:
 		_submit_session(false)
-		AudioManager.play_effect(AudioManager.game_over_sfx)
+		AudioManager.play_effect(AudioManager.game_over_sfx, -10)
 		EventManager.game_over.emit()
-	elif count == 12:
+	elif face_up_count == 12:
 		_submit_session(true)
+		AudioManager.play_effect(AudioManager.game_won_sfx, -10)
 		EventManager.game_won.emit()
 	else:
 		EventManager.turn_finished = true

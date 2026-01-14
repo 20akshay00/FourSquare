@@ -9,5 +9,7 @@ signal turn_started
 signal game_won
 signal game_over
 
+signal open_leaderboard
+
 signal stats_updated
 var turn_finished: bool = true

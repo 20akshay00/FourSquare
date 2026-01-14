@@ -1,0 +1,31 @@
+[gd_scene load_steps=2 format=3 uid="uid://binx7yxl3p1xr"]
+
+[ext_resource type="FontFile" uid="uid://ftg30fonq2ip" path="res://assets/karmatic-arcade.regular.ttf" id="1_vty3v"]
+
+[node name="LeaderboardRow" type="HBoxContainer"]
+custom_minimum_size = Vector2(450, 30)
+offset_right = 40.0
+offset_bottom = 40.0
+alignment = 1
+
+[node name="Rank" type="Label" parent="."]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_vty3v")
+theme_override_font_sizes/font_size = 18
+text = "1."
+
+[node name="Name" type="Label" parent="."]
+custom_minimum_size = Vector2(126, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_vty3v")
+theme_override_font_sizes/font_size = 18
+text = "????????"
+
+[node name="Score" type="Label" parent="."]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_vty3v")
+theme_override_font_sizes/font_size = 18
+text = "0"
+horizontal_alignment = 2
