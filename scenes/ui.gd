@@ -71,8 +71,6 @@ func reveal_game_won_label() -> void:
 	game_won_label.show()
 	
 	var tween = create_tween()
-	tween.tween_interval(0.5)
-
 	tween.tween_property(game_won_label, "scale", Vector2.ONE, 2.0)\
 		.set_trans(Tween.TRANS_ELASTIC)\
 		.set_ease(Tween.EASE_OUT)

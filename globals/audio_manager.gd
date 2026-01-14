@@ -4,8 +4,8 @@ var flip_sfx = load("res://assets/audio/CardFlip.wav")
 var slide_sfx = load("res://assets/audio/CardSlide.wav")
 var invalid_sfx = load("res://assets/audio/InvalidAction.wav")
 var click_sfx = load("res://assets/audio/ClickAction.wav")
-var game_over_sfx = load("res://assets/audio/GameOver.wav")
-var game_won_sfx = load("res://assets/audio/GameWon.wav")
+var game_over_sfx = load("res://assets/audio/GameOver.ogg")
+var game_won_sfx = load("res://assets/audio/GameWon.ogg")
 
 func _play_music(music: AudioStream, volume = -7):
 	if stream == music:
