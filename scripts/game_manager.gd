@@ -3,7 +3,8 @@ extends Node2D
 @export var deck: Deck
 @export var grid: Node2D
 
-@export var FLIP_DURATION: float = 0.5
+@export var FLIP_DURATION: float = 0.2
+@export var FLIP_DELAY: float = 0.25
 
 var tween: Tween
 var _start_time: float = 0.0
@@ -29,7 +30,7 @@ func get_same_row_indices(index: int, width: int = 4) -> Array[int]:
 			result.append(i)
 	return result
 
-func get_same_column_indices(index: int, width: int = 4, height: int = 3) -> Array[int]:
+func get_same_column_indices(index: int, width: int = 4, height: int = 4) -> Array[int]:
 	var col = index % width
 	var result: Array[int] = []
 	for i in range(height):
@@ -49,14 +50,14 @@ func _on_stack_selected(stack: Stack):
 		.filter(func(c): return c.is_revealed) \
 		.map(func(c): return c.get_value())
 	
-	var tweens: Array[Tween] = []
+	var row_tweens: Array[Tween] = []
 	if row_values.is_empty() or ((card.get_value() > row_values.max()) or (card.get_value() < row_values.min())):
 		for s in row_stacks: 
 			tween = s.flip()
-			if tween: tweens.append(tween)
+			if tween: row_tweens.append(tween)
 
-	for tween in tweens: if tween.is_valid(): await tween.finished
-	if !tweens.is_empty(): await get_tree().create_timer(FLIP_DURATION).timeout
+	for tween in row_tweens: if tween.is_valid(): await tween.finished
+	if !row_tweens.is_empty(): await get_tree().create_timer(FLIP_DURATION).timeout
 
 	var col_stacks = get_same_column_indices(stack.get_index()).map(grid.get_child)
 	var col_values = col_stacks.map(func(s): return s.get_top_card()) \
@@ -64,26 +65,35 @@ func _on_stack_selected(stack: Stack):
 		.filter(func(c): return c.is_revealed) \
 		.map(func(c): return c.get_value())
 	
+	var col_tweens: Array[Tween] = []
 	if col_values.is_empty() or ((card.get_value() > col_values.max()) or (card.get_value() < col_values.min())):
 		for s in col_stacks: 
 			tween = s.flip()
-			if tween: tweens.append(tween)
+			if tween: col_tweens.append(tween)
 
-	for tween in tweens: if tween.is_valid(): await tween.finished
-	if !tweens.is_empty(): await get_tree().create_timer(FLIP_DURATION).timeout
-
+	for tween in col_tweens: if tween.is_valid(): await tween.finished
+	if !col_tweens.is_empty(): await get_tree().create_timer(FLIP_DURATION).timeout
 	_validate_board()
 
 func _on_turn_started() -> void:
 	deck.spawn_card()
 
 func _validate_board() -> void:
-	var face_down_count = grid.get_children() \
+	var stacks = grid.get_children()
+	
+	for i in 16:
+		var n = [i-4, i+4, i-1 if i%4 != 0 else -1, i+1 if i%4 != 3 else -1]
+		var has_own_card = stacks[i].get_top_card() != null
+		var has_neighbor = n.any(func(idx): return idx >= 0 and idx < 16 and stacks[idx].get_top_card() != null)
+		
+		stacks[i].set_validity(has_own_card or has_neighbor)
+
+	var face_down_count = stacks \
 		.map(func(s): return s.get_top_card()) \
 		.filter(func(c): return c != null and !c.is_revealed) \
 		.size()
 		
-	var face_up_count = grid.get_children() \
+	var face_up_count = stacks \
 		.map(func(s): return s.get_top_card()) \
 		.filter(func(c): return c != null and c.is_revealed) \
 		.size()

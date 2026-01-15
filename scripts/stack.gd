@@ -12,6 +12,7 @@ class_name Stack
 
 var _color_tween: Tween
 var _is_cursor_inside: bool = false
+var _is_valid: bool = true
 
 func _ready() -> void:
 	border.self_modulate = BASE_COLOR
@@ -19,7 +20,11 @@ func _ready() -> void:
 	input_area.mouse_exited.connect(_on_mouse_exited)
 
 func _on_mouse_entered() -> void:
-	_animate_color(HOVER_COLOR)
+	if _is_valid:
+		_animate_color(HOVER_COLOR)
+	else:
+		_animate_color(INVALID_COLOR)
+	
 	_is_cursor_inside = true
 	
 func _on_mouse_exited() -> void:
@@ -31,8 +36,8 @@ func _animate_color(target_color: Color) -> void:
 	_color_tween = create_tween()
 	_color_tween.tween_property(border, "self_modulate", target_color, duration).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 
-func _flash_color(target_color: Color) -> void:
-	AudioManager.play_effect(AudioManager.invalid_sfx)
+func _flash_color(target_color: Color, play_sfx: bool = true) -> void:
+	if play_sfx: AudioManager.play_effect(AudioManager.invalid_sfx)
 	if _color_tween: _color_tween.kill()
 	_color_tween = create_tween()
 	_color_tween.tween_property(border, "self_modulate", target_color, duration).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
@@ -40,7 +45,7 @@ func _flash_color(target_color: Color) -> void:
 
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("select") and _is_cursor_inside:
-		if EventManager.turn_finished:
+		if EventManager.turn_finished and _is_valid:
 			EventManager.turn_finished = false
 			EventManager.stack_selected.emit(self)
 		else:
@@ -58,3 +63,10 @@ func get_top_card() -> Card:
 		return child
 	else:
 		return null
+
+func set_validity(val: bool) -> void:
+	_is_valid = val
+	if _is_cursor_inside: 
+		_animate_color(HOVER_COLOR)
+	else:
+		_animate_color(BASE_COLOR)

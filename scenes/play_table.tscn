@@ -60,9 +60,9 @@ color = Color(1, 1, 1, 0.0823529)
 
 [node name="CountLabel" type="Label" parent="UI"]
 self_modulate = Color(0.815686, 0.815686, 0.815686, 1)
-offset_left = 204.0
+offset_left = 245.0
 offset_top = 402.0
-offset_right = 240.0
+offset_right = 281.0
 offset_bottom = 428.0
 theme_override_fonts/font = ExtResource("2_5rund")
 theme_override_font_sizes/font_size = 18
@@ -70,9 +70,9 @@ text = "40"
 
 [node name="GameWonLabel" type="Label" parent="UI"]
 self_modulate = Color(0.815686, 0.815686, 0.815686, 1)
-offset_left = 157.0
+offset_left = 198.0
 offset_top = 173.0
-offset_right = 290.0
+offset_right = 331.0
 offset_bottom = 201.0
 pivot_offset = Vector2(64, 10)
 theme_override_fonts/font = ExtResource("2_5rund")
@@ -81,9 +81,9 @@ text = "You Win!"
 
 [node name="GameOverLabel" type="Label" parent="UI"]
 self_modulate = Color(0.815686, 0.815686, 0.815686, 1)
-offset_left = 140.0
+offset_left = 181.0
 offset_top = 173.0
-offset_right = 305.0
+offset_right = 346.0
 offset_bottom = 201.0
 pivot_offset = Vector2(83, 10)
 theme_override_fonts/font = ExtResource("2_5rund")
@@ -91,9 +91,9 @@ theme_override_font_sizes/font_size = 24
 text = "You lose!"
 
 [node name="PlayAgainButton" type="Button" parent="UI"]
-offset_left = 136.0
+offset_left = 177.0
 offset_top = 468.0
-offset_right = 311.0
+offset_right = 352.0
 offset_bottom = 500.0
 scale = Vector2(1e-05, 1e-05)
 pivot_offset = Vector2(87, 15)
@@ -127,9 +127,9 @@ ignore_texture_size = true
 
 [node name="TitleLabel" type="RichTextLabel" parent="UI"]
 self_modulate = Color(0.815686, 0.815686, 0.815686, 1)
-offset_left = 78.0
+offset_left = 119.0
 offset_top = 73.0
-offset_right = 380.0
+offset_right = 421.0
 offset_bottom = 123.0
 theme_override_fonts/normal_font = ExtResource("2_5rund")
 theme_override_font_sizes/normal_font_size = 32
@@ -208,7 +208,7 @@ position = Vector2(380, 490)
 scale = Vector2(0.8, 0.8)
 
 [node name="Deck" parent="." instance=ExtResource("3_2me7x")]
-position = Vector2(222, 324)
+position = Vector2(263, 324)
 
 [connection signal="pressed" from="UI/PlayAgainButton" to="UI" method="_on_play_again_button_pressed"]
 [connection signal="pressed" from="UI/StatsButton" to="UI" method="_on_stats_button_pressed"]

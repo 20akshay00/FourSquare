@@ -26,6 +26,7 @@ Talo="*res://addons/talo/talo_manager.gd"
 [display]
 
 window/stretch/mode="viewport"
+mouse_cursor/custom_image="uid://ptahk4oppwqt"
 
 [editor_plugins]
 
