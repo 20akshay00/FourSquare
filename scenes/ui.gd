@@ -87,7 +87,7 @@ func reveal_game_won_label() -> void:
 		.set_ease(Tween.EASE_OUT)
 		
 	tween.tween_interval(0.2)
-	tween.tween_property(play_again_button, "scale", Vector2.ONE, 1.5)\
+	tween.tween_property(play_again_button, "scale", Vector2.ONE, 1.)\
 		.set_trans(Tween.TRANS_ELASTIC)\
 		.set_ease(Tween.EASE_OUT)
 

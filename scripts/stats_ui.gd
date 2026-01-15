@@ -73,7 +73,7 @@ func _setup_stats() -> void:
 	labels[0].text = "Best score - %d" % StatsManager.high_score
 	labels[1].text = "Games played - %d" % played
 	labels[2].text = "Average playtime - " + _format_time(StatsManager.average_playtime)
-	labels[3].text = "Win rate - %d%%" % win_rate
+	labels[3].text = "Win rate - %.2f%%" % (win_rate/100.)
 
 func _format_time(seconds: float) -> String:
 	return "%02dm %02ds" % [int(seconds) / 60, int(seconds) % 60]

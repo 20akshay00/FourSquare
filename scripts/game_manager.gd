@@ -56,8 +56,9 @@ func _on_stack_selected(stack: Stack):
 			tween = s.flip()
 			if tween: row_tweens.append(tween)
 
-	for tween in row_tweens: if tween.is_valid(): await tween.finished
+	#for tween in row_tweens: if tween.is_valid(): await tween.finished
 	if !row_tweens.is_empty(): await get_tree().create_timer(FLIP_DURATION).timeout
+	await get_tree().create_timer(FLIP_DURATION).timeout
 
 	var col_stacks = get_same_column_indices(stack.get_index()).map(grid.get_child)
 	var col_values = col_stacks.map(func(s): return s.get_top_card()) \
@@ -71,8 +72,9 @@ func _on_stack_selected(stack: Stack):
 			tween = s.flip()
 			if tween: col_tweens.append(tween)
 
-	for tween in col_tweens: if tween.is_valid(): await tween.finished
+	#for tween in col_tweens: if tween.is_valid(): await tween.finished
 	if !col_tweens.is_empty(): await get_tree().create_timer(FLIP_DURATION).timeout
+	await get_tree().create_timer(FLIP_DURATION).timeout
 	_validate_board()
 
 func _on_turn_started() -> void:
