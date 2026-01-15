@@ -88,11 +88,11 @@ func _validate_board() -> void:
 		.filter(func(c): return c != null and c.is_revealed) \
 		.size()
 	
-	if face_down_count > 3:
+	if face_down_count > 4:
 		_submit_session(false)
 		AudioManager.play_effect(AudioManager.game_over_sfx, -10)
 		EventManager.game_over.emit()
-	elif face_up_count == 12:
+	elif face_up_count == 16:
 		_submit_session(true)
 		AudioManager.play_effect(AudioManager.game_won_sfx, -10)
 		EventManager.game_won.emit()

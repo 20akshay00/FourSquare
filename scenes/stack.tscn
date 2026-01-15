@@ -7,6 +7,7 @@
 size = Vector2(76, 120)
 
 [node name="Stack" type="Node2D"]
+scale = Vector2(0.8, 0.8)
 script = ExtResource("1_mus87")
 BASE_COLOR = Color(0.399428, 0.399428, 0.399428, 1)
 HOVER_COLOR = Color(1, 1, 1, 1)

@@ -10,6 +10,7 @@ atlas = ExtResource("1_sdhao")
 region = Rect2(1400, 288, 100, 144)
 
 [node name="Deck" type="Node2D"]
+scale = Vector2(0.8, 0.8)
 script = ExtResource("1_6rnap")
 card_scene = ExtResource("2_gdbsr")
 

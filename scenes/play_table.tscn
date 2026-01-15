@@ -152,44 +152,60 @@ deck = NodePath("../Deck")
 grid = NodePath("../Grid")
 
 [node name="Grid" type="Node2D" parent="."]
-position = Vector2(455, 67)
+position = Vector2(540, 47)
 metadata/_edit_group_ = true
 
 [node name="Stack1" parent="Grid" instance=ExtResource("2_2me7x")]
-position = Vector2(50, 72)
+position = Vector2(50, 70)
 
 [node name="Stack2" parent="Grid" instance=ExtResource("2_2me7x")]
-position = Vector2(200, 72)
+position = Vector2(160, 70)
 
 [node name="Stack3" parent="Grid" instance=ExtResource("2_2me7x")]
-position = Vector2(350, 72)
+position = Vector2(270, 72)
 
 [node name="Stack4" parent="Grid" instance=ExtResource("2_2me7x")]
-position = Vector2(500, 72)
+position = Vector2(380, 72)
 
 [node name="Stack5" parent="Grid" instance=ExtResource("2_2me7x")]
-position = Vector2(50, 252)
+position = Vector2(50, 210)
 
 [node name="Stack6" parent="Grid" instance=ExtResource("2_2me7x")]
-position = Vector2(200, 252)
+position = Vector2(160, 210)
 
 [node name="Stack7" parent="Grid" instance=ExtResource("2_2me7x")]
-position = Vector2(350, 252)
+position = Vector2(270, 210)
 
 [node name="Stack8" parent="Grid" instance=ExtResource("2_2me7x")]
-position = Vector2(500, 252)
+position = Vector2(380, 210)
 
 [node name="Stack9" parent="Grid" instance=ExtResource("2_2me7x")]
-position = Vector2(50, 432)
+position = Vector2(50, 350)
 
 [node name="Stack10" parent="Grid" instance=ExtResource("2_2me7x")]
-position = Vector2(200, 432)
+position = Vector2(160, 350)
 
 [node name="Stack11" parent="Grid" instance=ExtResource("2_2me7x")]
-position = Vector2(350, 432)
+position = Vector2(270, 350)
 
 [node name="Stack12" parent="Grid" instance=ExtResource("2_2me7x")]
-position = Vector2(500, 432)
+position = Vector2(380, 350)
+
+[node name="Stack13" parent="Grid" instance=ExtResource("2_2me7x")]
+position = Vector2(50, 490)
+scale = Vector2(0.8, 0.8)
+
+[node name="Stack14" parent="Grid" instance=ExtResource("2_2me7x")]
+position = Vector2(160, 490)
+scale = Vector2(0.8, 0.8)
+
+[node name="Stack15" parent="Grid" instance=ExtResource("2_2me7x")]
+position = Vector2(270, 490)
+scale = Vector2(0.8, 0.8)
+
+[node name="Stack16" parent="Grid" instance=ExtResource("2_2me7x")]
+position = Vector2(380, 490)
+scale = Vector2(0.8, 0.8)
 
 [node name="Deck" parent="." instance=ExtResource("3_2me7x")]
 position = Vector2(222, 324)
