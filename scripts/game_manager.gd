@@ -85,8 +85,8 @@ func _validate_board() -> void:
 		var n = [i-4, i+4, i-1 if i%4 != 0 else -1, i+1 if i%4 != 3 else -1]
 		var has_own_card = stacks[i].get_top_card() != null
 		var has_neighbor = n.any(func(idx): return idx >= 0 and idx < 16 and stacks[idx].get_top_card() != null)
-		
-		stacks[i].set_validity(has_own_card or has_neighbor)
+		var can_place = stacks[i].get_num_cards() < 4
+		stacks[i].set_validity((has_own_card or has_neighbor) and can_place)
 
 	var face_down_count = stacks \
 		.map(func(s): return s.get_top_card()) \

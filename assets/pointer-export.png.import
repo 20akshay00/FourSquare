@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ptahk4oppwqt"
-path="res://.godot/imported/pointer.png-7f692ad97453b2b0ac0c72b3dc243149.ctex"
+uid="uid://c32jp3crohn1m"
+path="res://.godot/imported/pointer-export.png-2baa7a7195d5e619f3f4e2ca3281c5bf.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/pointer.png"
-dest_files=["res://.godot/imported/pointer.png-7f692ad97453b2b0ac0c72b3dc243149.ctex"]
+source_file="res://assets/pointer-export.png"
+dest_files=["res://.godot/imported/pointer-export.png-2baa7a7195d5e619f3f4e2ca3281c5bf.ctex"]
 
 [params]
 

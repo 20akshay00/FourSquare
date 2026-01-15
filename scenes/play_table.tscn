@@ -58,6 +58,18 @@ offset_bottom = 601.0
 mouse_filter = 2
 color = Color(1, 1, 1, 0.0823529)
 
+[node name="WarningLabel" type="Label" parent="UI"]
+modulate = Color(1, 1, 1, 0)
+self_modulate = Color(0.815686, 0.815686, 0.815686, 1)
+offset_left = 571.0
+offset_top = 606.0
+offset_right = 947.0
+offset_bottom = 625.0
+pivot_offset = Vector2(64, 10)
+theme_override_fonts/font = ExtResource("2_5rund")
+theme_override_font_sizes/font_size = 16
+text = "Cannot place more than 4 cards!"
+
 [node name="CountLabel" type="Label" parent="UI"]
 self_modulate = Color(0.815686, 0.815686, 0.815686, 1)
 offset_left = 245.0
@@ -152,7 +164,7 @@ deck = NodePath("../Deck")
 grid = NodePath("../Grid")
 
 [node name="Grid" type="Node2D" parent="."]
-position = Vector2(540, 47)
+position = Vector2(540, 33)
 metadata/_edit_group_ = true
 
 [node name="Stack1" parent="Grid" instance=ExtResource("2_2me7x")]

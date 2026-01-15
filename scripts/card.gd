@@ -63,7 +63,7 @@ func move_to_stack(target_stack: Node2D) -> Tween:
 	_move_tween.tween_property(sprite, "scale", Vector2.ONE, MOVE_SCALE_DURATION)
 	
 	_move_tween.tween_callback(func():
-		reparent(target_stack)
+		reparent(target_stack.get_node("Cards"))
 		position = Vector2.ZERO 
 	)
 	

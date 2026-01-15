@@ -3,6 +3,7 @@ class_name Stack
 
 @onready var border := $Border
 @onready var input_area := $Area2D
+@onready var cards := $Cards
 
 @export var BASE_COLOR: Color
 @export var HOVER_COLOR: Color
@@ -45,9 +46,13 @@ func _flash_color(target_color: Color, play_sfx: bool = true) -> void:
 
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("select") and _is_cursor_inside:
-		if EventManager.turn_finished and _is_valid:
-			EventManager.turn_finished = false
-			EventManager.stack_selected.emit(self)
+		if EventManager.turn_finished:
+			if _is_valid:
+				EventManager.turn_finished = false
+				EventManager.stack_selected.emit(self)
+			else:
+				EventManager.invalid_move.emit(int(get_num_cards() < 4))
+				_flash_color(INVALID_COLOR)
 		else:
 			_flash_color(INVALID_COLOR)
 
@@ -58,7 +63,7 @@ func flip() -> Tween:
 	return null
 
 func get_top_card() -> Card:
-	var child = get_child(-1)
+	var child = cards.get_child(-1)
 	if child is Card:
 		return child
 	else:
@@ -66,7 +71,10 @@ func get_top_card() -> Card:
 
 func set_validity(val: bool) -> void:
 	_is_valid = val
-	if _is_cursor_inside: 
+	if _is_cursor_inside:
 		_animate_color(HOVER_COLOR)
 	else:
 		_animate_color(BASE_COLOR)
+	
+func get_num_cards() -> int:
+	return cards.get_child_count()

@@ -4,6 +4,8 @@ extends CanvasLayer
 @onready var game_over_label = $GameOverLabel
 @onready var game_won_label = $GameWonLabel
 
+@onready var warning_label = $WarningLabel
+
 @onready var play_again_button = $PlayAgainButton
 @onready var play_field = $PlayField
 
@@ -11,10 +13,19 @@ extends CanvasLayer
 
 var game_over_tween: Tween
 
+var warnings := [
+	"Cannot place more than 4 cards!",
+	"Adjacent pile must be occupied!"
+]
+
+var _warning_tween: Tween
+
 func _ready() -> void:
 	EventManager.card_count_changed.connect(_on_card_count_changed)
 	EventManager.game_over.connect(_on_game_over)
 	EventManager.game_won.connect(_on_game_won)
+	EventManager.invalid_move.connect(show_warning)
+
 	game_over_label.scale = Vector2(0, 0)
 	game_won_label.scale = Vector2(0, 0)
 
@@ -112,3 +123,20 @@ func _on_audio_button_toggled(toggled_on: bool) -> void:
 	if toggled_on: await AudioManager.play_effect(AudioManager.click_sfx).finished
 	AudioServer.set_bus_mute( AudioServer.get_bus_index("SFX"), toggled_on)
 	if !toggled_on: AudioManager.play_effect(AudioManager.click_sfx).finished
+
+func show_warning(code: int) -> void:
+	if code >= warnings.size(): return
+	
+	warning_label.text = warnings[code]
+	
+	if _warning_tween: _warning_tween.kill()
+	_warning_tween = create_tween()
+	
+	# Reset and show
+	warning_label.show()
+	
+	# Flash sequence
+	_warning_tween.tween_property(warning_label, "modulate:a", 1.0, 0.2)
+	_warning_tween.tween_interval(2.0)
+	_warning_tween.tween_property(warning_label, "modulate:a", 0.0, 0.5)
+	_warning_tween.tween_callback(warning_label.hide)

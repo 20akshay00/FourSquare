@@ -3,6 +3,8 @@ extends Node
 signal stack_selected(stack:Stack)
 signal card_count_changed(val: int)
 
+signal invalid_move(code: int)
+
 signal turn_completed
 signal turn_started
 
