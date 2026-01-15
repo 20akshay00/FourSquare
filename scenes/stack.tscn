@@ -26,10 +26,8 @@ self_modulate = Color(0.41, 0.41, 0.41, 0.823529)
 texture = ExtResource("1_tpkvb")
 
 [node name="Area2D" type="Area2D" parent="."]
-scale = Vector2(1, 1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("RectangleShape2D_tpkvb")
 
 [node name="Cards" type="Node2D" parent="."]
-scale = Vector2(1, 1)

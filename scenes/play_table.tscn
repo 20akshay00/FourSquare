@@ -205,19 +205,15 @@ position = Vector2(380, 350)
 
 [node name="Stack13" parent="Grid" instance=ExtResource("2_2me7x")]
 position = Vector2(50, 490)
-scale = Vector2(0.8, 0.8)
 
 [node name="Stack14" parent="Grid" instance=ExtResource("2_2me7x")]
 position = Vector2(160, 490)
-scale = Vector2(0.8, 0.8)
 
 [node name="Stack15" parent="Grid" instance=ExtResource("2_2me7x")]
 position = Vector2(270, 490)
-scale = Vector2(0.8, 0.8)
 
 [node name="Stack16" parent="Grid" instance=ExtResource("2_2me7x")]
 position = Vector2(380, 490)
-scale = Vector2(0.8, 0.8)
 
 [node name="Deck" parent="." instance=ExtResource("3_2me7x")]
 position = Vector2(263, 324)

@@ -31,7 +31,7 @@ func _ready() -> void:
 
 func _on_card_count_changed(val) -> void:
 	set_count(val)
-	if val < 10: count_label.position.x = 212.0
+	if val < 10: count_label.position.x = 254.0
 
 func set_count(val: int) -> void:
 	count_label.text = str(val)
